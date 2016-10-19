@@ -145,6 +145,23 @@ public class Builder {
             builder.setLargeIcon(options.getIconBitmap());
         }
 
+        if (actions != null && actions.length != 0) {
+            Intent intent = new Intent(context, clickActivity)
+                    .putExtra(Options.EXTRA, options.toString())
+                    .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            int reqCode = new Random().nextInt();
+
+            PendingIntent contentIntent = PendingIntent.getActivity(
+                    context, reqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            for (int i = 0; i < actions.length; i++) {
+                builder.setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(options.getText()))
+                        .addAction(1,
+                                actions[i], contentIntent);
+            }
+
+        }
+
         applyDeleteReceiver(builder);
         applyContentReceiver(builder);
 

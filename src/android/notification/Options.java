@@ -363,6 +363,32 @@ public class Options {
         return assets.getResIdForDrawable(icon);
     }
 
+    public String[] getActions() {
+        JSONArray jsonArray;
+        String[] actions;
+
+        jsonArray = options.optJSONArray("actions");
+        if (jsonArray != null) {
+            actions = new String[jsonArray.length()];
+            if (jsonArray != null && jsonArray.length() != 0) {
+                actions = new String[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        actions[i] = object.getString("text");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            actions = new String[0];
+        }
+
+        return actions;
+    }
+
+
     /**
      * JSON object as string.
      */
