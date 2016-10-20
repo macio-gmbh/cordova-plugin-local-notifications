@@ -33,8 +33,6 @@ import de.appplant.cordova.plugin.notification.TriggerReceiver;
  * up to foreground.
  */
 public class ActionActivity extends de.appplant.cordova.plugin.notification.ActionActivity {
-    // Key name for action extra
-    public static final String ACTION_ID = "ACTION_ID";
 
     /**
      * Called when local notification was clicked by the user.

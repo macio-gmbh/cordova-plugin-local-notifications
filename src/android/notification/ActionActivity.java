@@ -45,11 +45,7 @@ public class ActionActivity extends AbstractActionActivity {
             launchApp();
         }
 
-        if (notification.isRepeating()) {
-            notification.clear();
-        } else {
-            notification.cancel();
-        }
+        notification.cancel();
     }
 
     /**
