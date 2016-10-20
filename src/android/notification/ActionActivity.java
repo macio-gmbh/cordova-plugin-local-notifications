@@ -23,8 +23,6 @@
 
 package de.appplant.cordova.plugin.notification;
 
-import android.util.Log;
-
 /**
  * The receiver activity is triggered when a notification is clicked by a user.
  * The activity calls the background callback and brings the launch intent
@@ -43,8 +41,9 @@ public class ActionActivity extends AbstractActionActivity {
      */
     @Override
     public void onClick(Notification notification) {
-        launchApp();
-        Log.d("TEST", "action activity clicked");
+        if (notification.getOptions().launchApp()) {
+            launchApp();
+        }
 
         if (notification.isRepeating()) {
             notification.clear();

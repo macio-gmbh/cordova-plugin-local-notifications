@@ -134,7 +134,7 @@ public class Builder {
         Uri sound     = options.getSoundUri();
         int smallIcon = options.getSmallIcon();
         int ledColor  = options.getLedColor();
-        HashMap<Integer, String> actions = options.getActions();
+        HashMap<Integer, ActionUtil> actionsMap = options.getActions();
         NotificationCompat.Builder builder;
 
         builder = new NotificationCompat.Builder(context)
@@ -162,22 +162,23 @@ public class Builder {
             builder.setLargeIcon(options.getIconBitmap());
         }
 
-        if (actions != null && actions.size() != 0) {
-            Iterator it = actions.entrySet().iterator();
+        if (actionsMap != null && actionsMap.size() != 0) {
+            Iterator it = actionsMap.entrySet().iterator();
             while (it.hasNext()) {
-                HashMap.Entry action = (HashMap.Entry)it.next();
+                HashMap.Entry actionEntry = (HashMap.Entry)it.next();
                 Intent intent = new Intent(context, actionActivity)
                         .putExtra(Options.EXTRA, options.toString())
-                        .putExtra(ActionActivity.ACTION_ID, (Integer) action.getKey())
+                        .putExtra(ActionActivity.ACTION_ID, (Integer) actionEntry.getKey())
                         .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 int reqCode = new Random().nextInt();
 
-                PendingIntent actionIntent = PendingIntent.getActivity(
-                        context, reqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent actionIntent = PendingIntent.getActivity(context, reqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                ActionUtil actionUtil = (ActionUtil) actionEntry.getValue();
 
                 builder.setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(options.getText()))
-                        .addAction(1, action.getValue().toString(), actionIntent);
+                        .addAction(1, actionUtil.getText(), actionIntent);
 
                 it.remove();
             }

@@ -52,6 +52,9 @@ public class Options {
     // Repeat interval
     private long interval = 0;
 
+    // Action id
+    private int currentActionID = -1;
+
     // Application context
     private final Context context;
 
@@ -171,6 +174,35 @@ public class Options {
      */
     public long getRepeatInterval() {
         return interval;
+    }
+
+    /**
+     * current action id
+     */
+    public int getCurrentActionID() {
+        return currentActionID;
+    }
+
+    /**
+     * set currentActionID
+     * @param actionID
+     */
+    public void setCurrentActionID(Integer actionID) {
+        try {
+            options.put("actionId", actionID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        currentActionID = actionID;
+    }
+
+    /**
+     * Launch app is enabled or not
+     * @return
+     */
+    public boolean launchApp() {
+        ActionUtil action = getActions().get(getCurrentActionID());
+        return action.getLaunchApp();
     }
 
     /**
@@ -365,9 +397,9 @@ public class Options {
         return assets.getResIdForDrawable(icon);
     }
 
-    public HashMap<Integer, String> getActions() {
+    public HashMap<Integer, ActionUtil> getActions() {
         JSONArray jsonArray;
-        HashMap<Integer, String> actions = new HashMap<Integer, String>();
+        HashMap<Integer, ActionUtil> actions = new HashMap<Integer, ActionUtil>();
 
         jsonArray = options.optJSONArray("actions");
         if (jsonArray != null) {
@@ -377,7 +409,9 @@ public class Options {
                         JSONObject object = jsonArray.getJSONObject(i);
                         String text = object.getString("text");
                         Integer id = object.getInt("id");
-                        actions.put(id, text);
+                        Boolean launchApp = object.optBoolean("launchApp", false);
+                        ActionUtil action = new ActionUtil(id, text, launchApp);
+                        actions.put(id, action);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

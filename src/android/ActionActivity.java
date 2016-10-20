@@ -44,7 +44,7 @@ public class ActionActivity extends de.appplant.cordova.plugin.notification.Acti
      */
     @Override
     public void onClick(Notification notification) {
-        LocalNotification.fireEvent("click", notification);
+        LocalNotification.fireEvent("action", notification);
 
         super.onClick(notification);
 

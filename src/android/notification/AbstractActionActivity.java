@@ -27,7 +27,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +47,6 @@ abstract public class AbstractActionActivity extends Activity {
     public void onCreate (Bundle state) {
         super.onCreate(state);
 
-        Log.d("TEST", "on create");
         Intent intent   = getIntent();
         Bundle bundle   = intent.getExtras();
         Context context = getApplicationContext();
@@ -62,6 +60,10 @@ abstract public class AbstractActionActivity extends Activity {
 
             Notification notification =
                     buildNotification(builder);
+
+            Integer id = bundle.getInt(ActionActivity.ACTION_ID);
+
+            notification.getOptions().setCurrentActionID(id);
 
             onClick(notification);
         } catch (JSONException e) {
