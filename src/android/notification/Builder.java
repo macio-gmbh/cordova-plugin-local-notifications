@@ -118,6 +118,7 @@ public class Builder {
         Uri sound     = options.getSoundUri();
         int smallIcon = options.getSmallIcon();
         int ledColor  = options.getLedColor();
+        String[] actions = options.getActions();
         NotificationCompat.Builder builder;
 
         builder = new NotificationCompat.Builder(context)
