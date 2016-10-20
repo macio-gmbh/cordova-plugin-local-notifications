@@ -31,6 +31,8 @@ import android.support.v4.app.NotificationCompat;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -53,6 +55,9 @@ public class Builder {
 
     // Activity to handle the click event
     private Class<?> clickActivity = ClickActivity.class;
+
+    // Activity to handle the action events
+    private Class<?> actionActivity = ActionActivity.class;
 
     /**
      * Constructor
@@ -112,13 +117,24 @@ public class Builder {
     }
 
     /**
+     * Set actions activity.
+     *
+     * @param activity
+     *      Activity
+     */
+    public Builder setActionActivity(Class<?> activity) {
+        this.actionActivity = activity;
+        return this;
+    }
+
+    /**
      * Creates the notification with all its options passed through JS.
      */
     public Notification build() {
         Uri sound     = options.getSoundUri();
         int smallIcon = options.getSmallIcon();
         int ledColor  = options.getLedColor();
-        String[] actions = options.getActions();
+        HashMap<Integer, String> actions = options.getActions();
         NotificationCompat.Builder builder;
 
         builder = new NotificationCompat.Builder(context)
@@ -146,21 +162,25 @@ public class Builder {
             builder.setLargeIcon(options.getIconBitmap());
         }
 
-        if (actions != null && actions.length != 0) {
-            Intent intent = new Intent(context, clickActivity)
-                    .putExtra(Options.EXTRA, options.toString())
-                    .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            int reqCode = new Random().nextInt();
+        if (actions != null && actions.size() != 0) {
+            Iterator it = actions.entrySet().iterator();
+            while (it.hasNext()) {
+                HashMap.Entry action = (HashMap.Entry)it.next();
+                Intent intent = new Intent(context, actionActivity)
+                        .putExtra(Options.EXTRA, options.toString())
+                        .putExtra(ActionActivity.ACTION_ID, (Integer) action.getKey())
+                        .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                int reqCode = new Random().nextInt();
 
-            PendingIntent contentIntent = PendingIntent.getActivity(
-                    context, reqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            for (int i = 0; i < actions.length; i++) {
+                PendingIntent actionIntent = PendingIntent.getActivity(
+                        context, reqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
                 builder.setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(options.getText()))
-                        .addAction(1,
-                                actions[i], contentIntent);
-            }
+                        .addAction(1, action.getValue().toString(), actionIntent);
 
+                it.remove();
+            }
         }
 
         applyDeleteReceiver(builder);

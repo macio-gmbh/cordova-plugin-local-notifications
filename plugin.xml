@@ -97,7 +97,13 @@
             <receiver
                 android:name="de.appplant.cordova.plugin.localnotification.ClearReceiver"
                 android:exported="false" />
-
+            
+            <activity 
+                android:exported="false"
+                android:launchMode="singleInstance"
+                android:name="de.appplant.cordova.plugin.localnotification.ActionActivity"
+                android:theme="@android:style/Theme.NoDisplay" />
+        
             <activity
                 android:name="de.appplant.cordova.plugin.localnotification.ClickActivity"
                 android:launchMode="singleInstance"

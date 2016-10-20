@@ -61,6 +61,7 @@ public class RestoreReceiver extends AbstractRestoreReceiver {
                 .setTriggerReceiver(TriggerReceiver.class)
                 .setClearReceiver(ClearReceiver.class)
                 .setClickActivity(ClickActivity.class)
+                .setActionActivity(ActionActivity.class)
                 .build();
     }
 

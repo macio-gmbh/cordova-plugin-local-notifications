@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Wrapper around the JSON object passed through JS which contains all
@@ -364,26 +365,24 @@ public class Options {
         return assets.getResIdForDrawable(icon);
     }
 
-    public String[] getActions() {
+    public HashMap<Integer, String> getActions() {
         JSONArray jsonArray;
-        String[] actions;
+        HashMap<Integer, String> actions = new HashMap<Integer, String>();
 
         jsonArray = options.optJSONArray("actions");
         if (jsonArray != null) {
-            actions = new String[jsonArray.length()];
             if (jsonArray != null && jsonArray.length() != 0) {
-                actions = new String[jsonArray.length()];
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         JSONObject object = jsonArray.getJSONObject(i);
-                        actions[i] = object.getString("text");
+                        String text = object.getString("text");
+                        Integer id = object.getInt("id");
+                        actions.put(id, text);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             }
-        } else {
-            actions = new String[0];
         }
 
         return actions;
