@@ -186,6 +186,10 @@
             target-dir="src/de/appplant/cordova/plugin/notification" />
 
         <source-file
+            src="src/android/notification/ActionUtil.java"
+            target-dir="src/de/appplant/cordova/plugin/notification" />
+
+        <source-file
             src="src/android/notification/AssetUtil.java"
             target-dir="src/de/appplant/cordova/plugin/notification" />
 
