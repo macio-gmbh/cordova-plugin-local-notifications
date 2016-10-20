@@ -138,6 +138,10 @@
         </config-file>
 
         <source-file
+            src="src/android/ActionActivity.java"
+            target-dir="src/de/appplant/cordova/plugin/localnotification" />
+
+        <source-file
             src="src/android/LocalNotification.java"
             target-dir="src/de/appplant/cordova/plugin/localnotification" />
 
@@ -156,6 +160,10 @@
         <source-file
             src="src/android/RestoreReceiver.java"
             target-dir="src/de/appplant/cordova/plugin/localnotification" />
+        
+        <source-file
+            src="src/android/notification/AbstractActionActivity.java"
+            target-dir="src/de/appplant/cordova/plugin/notification" />
 
         <source-file
             src="src/android/notification/AbstractClearReceiver.java"
@@ -171,6 +179,10 @@
 
         <source-file
             src="src/android/notification/AbstractTriggerReceiver.java"
+            target-dir="src/de/appplant/cordova/plugin/notification" />
+        
+        <source-file
+            src="src/android/notification/ActionActivity.java"
             target-dir="src/de/appplant/cordova/plugin/notification" />
 
         <source-file
