@@ -206,7 +206,7 @@ public class Notification {
      */
     public void cancel() {
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        v.cancel()
+        v.cancel();
 
         Intent intent = new Intent(context, receiver)
                 .setAction(options.getIdStr());
