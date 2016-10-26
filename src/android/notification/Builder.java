@@ -145,6 +145,7 @@ public class Builder {
                 .setTicker(options.getText())
                 .setAutoCancel(options.isAutoClear())
                 .setOngoing(options.isOngoing())
+                .setVibrate(new long[]{})
                 .setColor(options.getColor());
 
         if (ledColor != 0) {

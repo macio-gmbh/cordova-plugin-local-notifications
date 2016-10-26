@@ -27,6 +27,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +52,14 @@ abstract public class AbstractTriggerReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle bundle  = intent.getExtras();
         Options options;
+
+        // Get instance of Vibrator from current Context
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = {500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
+        500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
+        500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
+        500,500,500,500,500,500,500,500,500,500,500,500,500,500,500};
+        v.vibrate(pattern, -1);
 
         try {
             String data = bundle.getString(Options.EXTRA);

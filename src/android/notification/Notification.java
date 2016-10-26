@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 
 import org.json.JSONException;
@@ -204,9 +205,12 @@ public class Notification {
      * method and cancel it.
      */
     public void cancel() {
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        v.cancel()
+
         Intent intent = new Intent(context, receiver)
                 .setAction(options.getIdStr());
-
+        
         PendingIntent pi = PendingIntent.
                 getBroadcast(context, 0, intent, 0);
 
