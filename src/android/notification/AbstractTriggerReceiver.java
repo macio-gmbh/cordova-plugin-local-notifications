@@ -55,11 +55,8 @@ abstract public class AbstractTriggerReceiver extends BroadcastReceiver {
 
         // Get instance of Vibrator from current Context
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        long[] pattern = {500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
-        500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
-        500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
-        500,500,500,500,500,500,500,500,500,500,500,500,500,500,500};
-        v.vibrate(pattern, -1);
+        long[] pattern = {500,500,500,500};
+        v.vibrate(pattern, 30);
 
         try {
             String data = bundle.getString(Options.EXTRA);
