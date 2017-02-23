@@ -422,6 +422,7 @@ public class Options {
         return actions;
     }
 
+    public boolean isOpenApp() { return options.optBoolean("openApp", true); }
 
     /**
      * JSON object as string.

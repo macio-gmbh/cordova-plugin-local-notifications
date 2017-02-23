@@ -1,6 +1,20 @@
+# Cordova Local-Notification Plugin MODIFIED
 
-[![npm version](https://badge.fury.io/js/de.appplant.cordova.plugin.local-notification.svg)](http://badge.fury.io/js/de.appplant.cordova.plugin.local-notification)
-[![PayPayl donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L3HKQCD9UA35A "Donate once-off to this project using Paypal")
+This is a modified version of the [cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications) plugin that adds a boolean option to the notification called openApp which determines if the app should be opened or not when the notification is clicked: -
+
+```javascript
+cordova.plugins.notification.local.schedule({
+    id: 1,
+    title: "Production Jour fixe",
+    text: "Duration 1h",
+    firstAt: monday_9_am,
+    every: "week",
+    sound: "file://sounds/reminder.mp3",
+    icon: "http://icons.com/?cal_id=1",
+    data: { meetingId:"123#fg8" },
+    openApp: true
+});
+
 
 ## Important notice
 1. Its been a while that the plugin has received major updates and bug fixes. My (free)time is limited and I have multiple projects to maintain. Once I've updated my background-mode plugin the local-notification plugin will get an official release supporting ios10. The ios10 branch will be merged into the master as well.
@@ -13,7 +27,6 @@ Thanks for using my plugin and for your support!</br>
 Sebastián Katzer
 
 Cordova Local-Notification Plugin
-=================================
 
 The essential purpose of local notifications is to enable an application to inform its users that it has something for them — for example, a message or an upcoming appointment — when the application isn’t running in the foreground.<br>
 They are scheduled by an application and delivered on the same device.
