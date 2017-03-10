@@ -179,7 +179,12 @@ public class Notification {
         if (isRepeating()) {
             getAlarmMgr().setRepeating(AlarmManager.RTC_WAKEUP,
                     triggerTime, options.getRepeatInterval(), pi);
-        } else{
+        } 
+        else{
+         if (android.os.Build.VERSION.SDK_INT >= 23) {
+        getAlarmMgr().setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTime, pi);
+         }
+        else{
          if (android.os.Build.VERSION.SDK_INT >= 19) {
         getAlarmMgr().setExact(AlarmManager.RTC_WAKEUP, triggerTime, pi);
          }
